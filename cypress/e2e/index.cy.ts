@@ -1,10 +1,38 @@
+var fixtures: Map<string, any>;
+
 describe('Testes sobre cadastro e consulta de Códigos de Endereçamento Postal', () => {
+  beforeEach(() => cy.task('truncateCollection'));
+
   before(() => {
-    cy.fixture('cepObject').then((cepObject) => { this.cepObject = cepObject; });
+    this.fixtures = new Map<string, any>();
+
+    const fixturesNames: string[] = [
+      'validCep'
+    ];
+
+    fixturesNames.forEach((fixtureName) => {
+      cy.fixture(fixtureName).then((fixture) => {
+        this.fixtures.set(fixtureName, fixture);
+      });
+    });
   });
   
   it('deve salvar um CEP com dados válidos', () => {
-    expect(this.cepObject.cep).to.equal('79200-000');
+    const validCep = this.fixtures.get('validCep');
+    
+    const requestOptions: Partial<Cypress.RequestOptions> = {
+      method: 'POST',
+      url: '/ceps',
+      body: <Cypress.RequestBody>validCep,
+      failOnStatusCode: false
+    };
+
+    cy.request(requestOptions)
+      .then(({ body, status }) => {
+        expect(status).to.equal(201);
+        const { mensagem } = body;
+        expect(mensagem).to.equal('CEP cadastrado com sucesso');
+      });
   });
 
   it('não deve salvar um CEP com um número de CEP inválido', () => {

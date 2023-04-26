@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 export const connectToMongoDB = async () => {
-  await connect(`${process.env.DATABASE_URI}`);
+  await connect(`${process.env.DATABASE_DOMAIN}/${process.env.DATABASE_NAME}`);
 }
 
 connection.on('connecting', () =>

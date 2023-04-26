@@ -19,8 +19,8 @@ const events: (NodeJS.Signals | OtherNodeJSSignals)[] = [
   'SIGTERM'
 ];
 
-events.forEach((_) => {
-  process.on((_), () => {
+events.forEach((e) => {
+  process.on((e), () => {
     server.close();
     connection.close();
   });
