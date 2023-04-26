@@ -5,7 +5,9 @@
   "license": "MIT",
   "scripts": {
     "start": "ts-node ./src/server.ts",
-    "dev": "nodemon --exec yarn start"
+    "dev": "nodemon --exec yarn start",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run"
   },
   "devDependencies": {
     "@types/cors": "^2.8.13",
