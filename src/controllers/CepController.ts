@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { CepDAO } from './../dao/CepDAO';
 import { CepModel } from './../domains/CepModel';
+import { cepRegExp } from './../utils/regex_utils';
 
 export class CepController {
   private _cepDAO: CepDAO;
@@ -12,18 +13,12 @@ export class CepController {
   async save(req: Request, res: Response) {
     const { cep: cepString, logradouro } = req.body;
 
-    if (!cepString || typeof cepString !== 'string') {
+    if (!cepString || typeof cepString !== 'string' || !cepRegExp.test(cepString)) {
       return res.status(400).json({ mensagensDeErro: ['Número de CEP inválido'] });
     }
     
     if (!logradouro || typeof logradouro !== 'string') {
       return res.status(400).json({ mensagensDeErro: ['Logradouro inválido'] });
-    }
-    
-    const cepRegExp = new RegExp(/^\d{5}\-\d{3}$/);
-    
-    if(!cepRegExp.test(cepString)) {
-      return res.status(500).json({ mensagem: '' });
     }
     
     const cepExistingObject = await this._cepDAO.findByCep(cepString);
@@ -42,13 +37,13 @@ export class CepController {
   }
   
   async findByCep(req: Request, res: Response) {
-    const { cep } = req.params;
+    const { cep: cepString } = req.params;
 
-    if (!cep) {
+    if (!cepString || typeof cepString !== 'string' || !cepRegExp.test(cepString))  {
       return res.status(400).json({ mensagem: 'CEP inválido' });
     }
 
-    const cepExistingObject = await this._cepDAO.findByCep(cep);
+    const cepExistingObject = await this._cepDAO.findByCep(cepString);
 
     if (!cepExistingObject) {
       return res.status(404).json({ mensagem: 'Logradouro não encontrado' });
