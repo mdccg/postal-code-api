@@ -99,11 +99,11 @@ $ yarn dev
 Para npm:
 
 ```console
-$ npm run test
+$ npm run cy:run
 ```
 
 Para Yarn:
 
 ```console
-$ yarn test
+$ yarn cy:run
 ```
