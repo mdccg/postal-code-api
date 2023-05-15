@@ -24,7 +24,7 @@ Para cada _endpoint_ foi implementado um [conjunto de testes](./cypress/e2e/inde
 
 Este foi o quarto repositório de código apresentado no [Curso Superior de TSI do IFMS](https://www.ifms.edu.br/campi/campus-aquidauana/cursos/graduacao/sistemas-para-internet/sistemas-para-internet) como requisito para obtenção da nota parcial das atividades da unidade curricular Linguagem de Programação III.
 
-| [&larr; Repositório anterior](https://github.com/mdccg/refactored-contact-book-api) | [Próximo repositório &rarr;](#) |
+| [&larr; Repositório anterior](https://github.com/mdccg/refactored-contact-book-api) | [Próximo repositório &rarr;](https://github.com/mdccg/decoupled-contact-book-api) |
 |-|-|
 
 ## Pilha de tecnologia
